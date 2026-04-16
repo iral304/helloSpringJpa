@@ -127,6 +127,18 @@ public class ProductService {
     }
 
     /**
+     * 검색 메소드 추가
+     */
+    public List<Product> searchByName(String keyword) {
+        return productRepository.findByNameContaining(keyword);
+    }
+
+    public List<Product> searchByCategory(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+
+
+    /**
      * 상품 삭제
      */
     @Transactional
