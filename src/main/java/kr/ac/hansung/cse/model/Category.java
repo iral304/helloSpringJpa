@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(exclude = "products")          // products 제외: 양방향 무한순환 방지
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA 요구 기본 생성자 (외부 직접 생성 방지)
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,8 @@ public class Category {
     // ── ② 양방향 선언 시 추가 (처음에는 없어도 됨) ───────────────────
     @OneToMany(mappedBy = "category",         // Product.java의 category 필드명
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
     // 편의 메서드: 양쪽 참조를 한 번에 설정
